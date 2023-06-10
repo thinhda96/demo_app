@@ -5,7 +5,7 @@ db_config = {
     'password': 'password',
     'host': '20.119.36.225',
     'database': 'payment',
-    'port': 8306
+    'port': 8036
 }
 
 open_ai_key = os.environ["OPENAI_API_KEY"]
