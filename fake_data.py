@@ -9,7 +9,7 @@ num_records = 100
 
 # Define the range of user_id and product_id
 user_id_range = (1, 100)
-product_id_range = (1, 50)
+product_id_range = (1, 3)
 
 # Define the range of transaction_amount
 transaction_amount_range = (1, 1000)

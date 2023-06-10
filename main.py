@@ -6,6 +6,7 @@ import mysql.connector
 import pandas as pd
 import matplotlib.pyplot as plt
 from datetime import datetime
+import os
 
 db_user = "root"
 db_password = "password"
@@ -13,12 +14,9 @@ db_host = "localhost:3306"
 db_name = "payment"
 db = SQLDatabase.from_uri(f"mysql+pymysql://{db_user}:{db_password}@{db_host}/{db_name}")
 from langchain.chat_models import ChatOpenAI
-open_ai_key = st.sidebar.text_input("OpenAI API Key", value='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')
-# open_ai_key ='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'
-llm = ChatOpenAI(model_name="gpt-4",openai_api_key=open_ai_key)
 
-toolkit = SQLDatabaseToolkit(db=db, llm=llm)
-
+open_ai_key = os.environ["OPENAI_API_KEY"]
+llm = ChatOpenAI(model_name="gpt-4", openai_api_key=open_ai_key)
 
 toolkit = SQLDatabaseToolkit(db=db, llm=llm)
 agent = create_sql_agent(
@@ -27,21 +25,30 @@ agent = create_sql_agent(
     verbose=True
 )
 db_config = {
-        'user': 'root',
-        'password': 'password',
-        'host': 'localhost',
-        'database': 'payment'
-    }
+    'user': 'root',
+    'password': 'password',
+    'host': 'localhost',
+    'database': 'payment'
+}
+
+
+def query_all():
+    cnx = mysql.connector.connect(**db_config)
+    cursor = cnx.cursor()
+    query = f"""
+    SELECT *
+    FROM transactions
+    """
+
+    cursor.execute(query)
+    data = cursor.fetchall()
+    return data
+
 
 def fetch_transactions():
-    # Replace these with your database credentials
-
-
-    # Connect to the database
     cnx = mysql.connector.connect(**db_config)
     cursor = cnx.cursor()
 
-    # Get the current month and year
     current_month = datetime.now().month
     current_year = datetime.now().year
 
@@ -64,6 +71,7 @@ def fetch_transactions():
 
     return df
 
+
 def plot_transactions(df):
     # Group the data by date and sum the transaction amounts
     df['transaction_amount'] = pd.to_numeric(df['transaction_amount'])
@@ -74,6 +82,7 @@ def plot_transactions(df):
     ax.set_xlabel('Date')
     ax.set_ylabel('Transaction Amount')
     return fig
+
 
 def plot_total_transactions_by_user(df):
     # Connect to the database
@@ -114,14 +123,30 @@ def plot_total_transactions_by_user(df):
 with st.sidebar:
     question = st.text_area("Question")
     if st.button("Ask"):
-        result = agent.run(question)
-        st.markdown(result)
+        if question == "":
+            st.warning("Please enter a question")
+        else:
+            # message = st.markdown("Thinking...")
+            with st.spinner('Thinking...'):
+                result = agent.run(question)
+            # result = "hello"
+            st.success(f'Result:\n {result}')
 
 # Streamlit app
 st.title("Dashboard builder")
+
+all_data = query_all()
+df = pd.DataFrame(all_data, columns=['id', 'user_id', 'product_id', 'transaction_date', 'transaction_amount','payment_method'])
+st.subheader('Transaction Data')
+st.write(df)
+
+st.write('---')
+
 transactions = fetch_transactions()
 chart = plot_transactions(transactions)
 st.pyplot(chart)
+
+st.write('---')
 
 chart_user = plot_total_transactions_by_user(transactions)
 st.pyplot(chart_user)
