@@ -3,6 +3,7 @@ import pandas as pd
 from datetime import datetime
 from config import db_config
 
+
 class Database:
     def __init__(self, config):
         self.config = config
@@ -10,7 +11,10 @@ class Database:
     def _connect(self):
         return mysql.connector.connect(**self.config)
 
-    def query_all(self):
+    def fetch_all_transactions(self) -> list:
+        """
+        Fetches all transaction records from the database and returns them as a list of tuples.
+        """
         cnx = self._connect()
         cursor = cnx.cursor()
         query = "SELECT * FROM transactions"
@@ -18,7 +22,15 @@ class Database:
         data = cursor.fetchall()
         return data
 
-    def fetch_transactions(self):
+    def fetch_current_month_transactions(self) -> list:
+        """
+        Fetches transaction data (date and amount) for the current month and year
+        from the `transactions` table in the database.
+
+        Returns:
+            data (list): A list of tuples containing transaction_date and transaction_amount
+                         for the current month and year.
+        """
         cnx = self._connect()
         cursor = cnx.cursor()
 
@@ -37,10 +49,13 @@ class Database:
         cursor.close()
         cnx.close()
 
-        df = pd.DataFrame(data, columns=['transaction_date', 'transaction_amount'])
-        return df
+        return data
 
-    def fetch_total_transactions_by_user(self):
+    def fetch_top_user_transactions(self) -> list:
+        """
+        Connects to the database, retrieves the total transaction amounts for the top 10 users, and returns the data.
+        The transactions are grouped by user_id and the sum of transaction amounts for each user is calculated.
+        """
         cnx = self._connect()
         cursor = cnx.cursor()
 
@@ -57,5 +72,4 @@ class Database:
         cursor.close()
         cnx.close()
 
-        df = pd.DataFrame(data, columns=['user_id', 'transaction_amount'])
-        return df
+        return data

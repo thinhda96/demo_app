@@ -19,7 +19,7 @@ payment_methods = ['Credit Card', 'Debit Card', 'PayPal', 'Bank Transfer', 'Cash
 
 db_user = "root"
 db_password = "password"
-db_host = "localhost:3306"
+db_host = "20.119.36.225:8036"
 db_name = "payment"
 db = SQLDatabase.from_uri(f"mysql+pymysql://{db_user}:{db_password}@{db_host}/{db_name}")
 
