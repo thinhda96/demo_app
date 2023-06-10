@@ -1,0 +1,7 @@
+faker~=18.10.1
+pymysql
+pandas~=2.0.1
+streamlit~=1.22.0
+langchain~=0.0.195
+mysql-connector-python~=8.0.33
+matplotlib~=3.7.1
