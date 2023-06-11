@@ -24,6 +24,23 @@ agent = create_sql_agent(
 db_instance = Database(db_config)
 plot_instance = Plot()
 
+
+def plot_monthly_chart():
+    # fetches the current month's transactions from the database, creates a chart to visualize these transactions,
+    # and then displays the chart using Streamlit.
+    transactions = db_instance.fetch_current_month_transactions()
+    chart = plot_instance.plot_monthly_transactions(transactions)
+    st.pyplot(chart)
+
+
+def plot_user_transactions_pie_chart():
+    # fetches the top user transactions from the database, creates a pie chart to visualize these transactions,
+    # and displays the chart using Streamlit.
+    transactions_by_user = db_instance.fetch_top_user_transactions()
+    chart_user = plot_instance.plot_user_transactions_pie_chart(transactions_by_user)
+    st.pyplot(chart_user)
+
+
 with st.sidebar:
     question = st.text_area("Question")
     if st.button("Ask"):
@@ -43,13 +60,8 @@ st.subheader('Transaction Data')
 st.write(df)
 
 st.write('---')
-
-transactions = db_instance.fetch_current_month_transactions()
-chart = plot_instance.plot_monthly_transactions(transactions)
-st.pyplot(chart)
+plot_monthly_chart()
 
 st.write('---')
 
-transactions_by_user = db_instance.fetch_top_user_transactions()
-chart_user = plot_instance.plot_user_transactions_pie_chart(transactions_by_user)
-st.pyplot(chart_user)
+plot_user_transactions_pie_chart()
