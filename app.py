@@ -1,17 +1,10 @@
 import pandas as pd
 import streamlit as st
-from langchain.agents import create_sql_agent
-from langchain.agents.agent_toolkits import SQLDatabaseToolkit
-from langchain.chat_models import ChatOpenAI
-from langchain.sql_database import SQLDatabase
 
 from chat_sql_agent import create_openai_sqlagent
 from config import db_config, open_ai_key
 from database import Database
 from plot import Plot
-
-
-
 
 db_instance = Database(db_config)
 plot_instance = Plot()
