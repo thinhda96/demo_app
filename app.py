@@ -5,26 +5,12 @@ from langchain.agents.agent_toolkits import SQLDatabaseToolkit
 from langchain.chat_models import ChatOpenAI
 from langchain.sql_database import SQLDatabase
 
+from chat_sql_agent import create_openai_sqlagent
 from config import db_config, open_ai_key
 from database import Database
 from plot import Plot
 
 
-def create_sql_agent():
-    # This code initializes a connection to a MySQL database using the provided configuration, creates a ChatOpenAI
-    # instance with the GPT-4 model, and then sets up an SQL agent with the database and language model for natural
-    # language processing tasks.
-    db = SQLDatabase.from_uri(
-        f"mysql+pymysql://{db_config['user']}:{db_config['password']}@{db_config['host']}:{db_config['port']}/{db_config['database']}")
-    llm = ChatOpenAI(model_name="gpt-4", openai_api_key=open_ai_key)
-
-    toolkit = SQLDatabaseToolkit(db=db, llm=llm)
-    agent = create_sql_agent(
-        llm=llm,
-        toolkit=toolkit,
-        verbose=True
-    )
-    return agent
 
 
 db_instance = Database(db_config)
@@ -48,7 +34,7 @@ def plot_user_transactions_pie_chart():
 
 
 if __name__ == "__main__":
-    agent = create_sql_agent()
+    agent = create_openai_sqlagent(open_ai_key)
 
     with st.sidebar:
         question = st.text_area("Question")
@@ -70,7 +56,9 @@ if __name__ == "__main__":
     st.write(df)
 
     st.write('---')
+    # show monthly chart
     plot_monthly_chart()
 
     st.write('---')
+    # show transaction pie chart
     plot_user_transactions_pie_chart()
