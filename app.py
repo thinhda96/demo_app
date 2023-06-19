@@ -10,7 +10,7 @@ from database import Database
 from plot import Plot
 
 
-def create_sql_agent():
+def create_db_query_agent():
     # This code initializes a connection to a MySQL database using the provided configuration, creates a ChatOpenAI
     # instance with the GPT-4 model, and then sets up an SQL agent with the database and language model for natural
     # language processing tasks.
@@ -19,7 +19,7 @@ def create_sql_agent():
     llm = ChatOpenAI(model_name="gpt-4", openai_api_key=open_ai_key)
 
     toolkit = SQLDatabaseToolkit(db=db, llm=llm)
-    agent = create_sql_agent(
+    agent = create_db_query_agent(
         llm=llm,
         toolkit=toolkit,
         verbose=True
@@ -48,7 +48,7 @@ def plot_user_transactions_pie_chart():
 
 
 if __name__ == "__main__":
-    agent = create_sql_agent()
+    agent = create_db_query_agent()
 
     with st.sidebar:
         question = st.text_area("Question")
