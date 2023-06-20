@@ -47,7 +47,7 @@ if __name__ == "__main__":
 
     st.write('---')
     # Create two columns for the charts
-    col1, col2 = st.beta_columns(2)
+    col1, col2 = st.columns(2)
     # show monthly chart in the first column
     with col1:
         plot_monthly_chart()
