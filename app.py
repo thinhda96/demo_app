@@ -1,3 +1,4 @@
+
 import pandas as pd
 import streamlit as st
 
@@ -10,16 +11,12 @@ db_instance = Database(db_config)
 plot_instance = Plot()
 
 
-# plot_monthly_chart fetches the current month's transactions from the database, creates a chart to visualize these
-# transactions, and then displays the chart using Streamlit.
 def plot_monthly_chart():
     transactions = db_instance.fetch_current_month_transactions()
     chart = plot_instance.plot_monthly_transactions(transactions)
     st.pyplot(chart)
 
 
-# plot_user_transactions_pie_chart fetches the top user transactions from the database, creates a pie chart to visualize these transactions,
-# and displays the chart using Streamlit.
 def plot_user_transactions_pie_chart():
     transactions_by_user = db_instance.fetch_top_user_transactions()
     chart_user = plot_instance.plot_user_transactions_pie_chart(transactions_by_user)
@@ -49,9 +46,12 @@ if __name__ == "__main__":
     st.write(df)
 
     st.write('---')
-    # show monthly chart
-    plot_monthly_chart()
+    # Create two columns for the charts
+    col1, col2 = st.columns(2)
+    # show monthly chart in the first column
+    with col1:
+        plot_monthly_chart()
+    # show transaction pie chart in the second column
+    with col2:
+        plot_user_transactions_pie_chart()
 
-    st.write('---')
-    # show transaction pie chart
-    plot_user_transactions_pie_chart()
