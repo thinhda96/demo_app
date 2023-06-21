@@ -1,3 +1,4 @@
 Question 1: What chart type would be best suited to represent the spending money per month data?
 Question 2: How should the new chart be implemented within the existing Plot class to maintain the project structure?
 Question 3: How can we modify the app.py file to include the new chart without affecting the existing functionality?
+Question 4: Where in the application should the new chart be displayed to provide the most meaningful insights to the user?
