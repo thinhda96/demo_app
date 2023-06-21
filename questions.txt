@@ -1,0 +1,3 @@
+Question 1: Which chart type would be most appropriate to display the spending money per month data?
+Question 2: In which file and function should the new chart be implemented to follow the existing project structure?
+Question 3: How should the new chart be displayed in the existing Streamlit app without breaking existing functionalities?

@@ -1,3 +1,4 @@
+
 import pandas as pd
 import streamlit as st
 
@@ -26,6 +27,12 @@ def plot_user_transactions_pie_chart():
     st.pyplot(chart_user)
 
 
+def plot_spending_money_per_month_chart():
+    transactions = db_instance.fetch_all_transactions()
+    chart = plot_instance.plot_spending_money_per_month_chart(transactions)
+    st.pyplot(chart)
+
+
 if __name__ == "__main__":
     agent = create_openai_sqlagent(open_ai_key)
 
@@ -49,9 +56,18 @@ if __name__ == "__main__":
     st.write(df)
 
     st.write('---')
-    # show monthly chart
-    plot_monthly_chart()
+    
+    with st.container():
+        col1, col2 = st.columns(2)
 
-    st.write('---')
-    # show transaction pie chart
-    plot_user_transactions_pie_chart()
+        with col1:
+            # show monthly chart
+            plot_monthly_chart()
+
+            # show transaction pie chart
+            plot_user_transactions_pie_chart()
+
+        with col2:
+            # show spending money per month chart
+            plot_spending_money_per_month_chart()
+
