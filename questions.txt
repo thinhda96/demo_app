@@ -1,3 +1,3 @@
-Question 1: What are the required columns in the dataset for plotting the spending money per month chart?
-Question 2: In which method of the Plot class should the new chart be implemented?
-Question 3: How should the chart be integrated into the Streamlit app (app.py)?
+Question 1: What chart type would be best suited to represent the spending money per month data?
+Question 2: How should the new chart be implemented within the existing Plot class to maintain the project structure?
+Question 3: How can we modify the app.py file to include the new chart without affecting the existing functionality?
