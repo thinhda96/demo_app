@@ -1,0 +1,3 @@
+Question 1: Which part of the existing codebase should be modified to add a chart displaying monthly spending?
+Question 2: How should the new chart be designed to visualize spending per month, considering the existing chart types and data processing methods in the code?
+Question 3: What changes should be made to the app.py file to display the new chart on the dashboard without affecting the existing charts and data presentation?
