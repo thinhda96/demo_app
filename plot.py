@@ -1,3 +1,4 @@
+
 from typing import Any
 
 import pandas as pd
@@ -44,4 +45,26 @@ class Plot:
         user_totals.plot(kind='pie', y='transaction_amount', ax=ax, legend=False, autopct='%1.1f%%')
         ax.set_title('Total Transactions by User')
         ax.set_ylabel('')
+        return fig
+
+    @staticmethod
+    def plot_spending_money_per_month_chart(data):
+        """
+        Generates a bar chart of spending money per month.
+
+        Args:
+            data (list): A list of tuples containing transaction_date and transaction_amount.
+
+        Returns:
+            matplotlib.figure.Figure: A bar chart showing the spending money per month.
+        """
+        df = pd.DataFrame(data, columns=['transaction_date', 'transaction_amount'])
+        df['transaction_amount'] = pd.to_numeric(df['transaction_amount'])
+        df['transaction_month'] = pd.to_datetime(df['transaction_date']).dt.to_period('M')
+        monthly_totals = df.groupby('transaction_month').sum()
+        fig, ax = plt.subplots(figsize=(10, 6))
+        monthly_totals.plot(kind='bar', ax=ax)
+        ax.set_title('Spending Money Per Month')
+        ax.set_xlabel('Month')
+        ax.set_ylabel('Spending Amount')
         return fig
