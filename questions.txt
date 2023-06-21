@@ -1,0 +1,3 @@
+Question 1: Which chart type would be most suitable for visualizing monthly spending data?
+Question 2: In which file and function should the new chart be added to maintain the project structure?
+Question 3: How can we ensure that adding the new chart does not break any existing functionalities in the codebase?
