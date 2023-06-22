@@ -1,0 +1,3 @@
+Question 1: What is the main functionality of this codebase?
+Question 2: How are the different files and classes organized in the project structure?
+Question 3: Are there any external libraries or dependencies used in this codebase, and if so, what are their purposes?
