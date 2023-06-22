@@ -1,0 +1,3 @@
+Question 1: What is the main purpose of this codebase?
+Question 2: Which technologies and libraries are used in this project, and what are their roles?
+Question 3: Are there any special features or functionalities that should be highlighted in the README.md description?
