@@ -1,0 +1,3 @@
+Question 1: What is the main purpose of this codebase and the primary functionality it provides?
+Question 2: How do the different modules (plot.py, config.py, fake_data.py, database.py, app.py, and chat_sql_agent.py) interact with each other, and what are their specific roles in the codebase?
+Question 3: Are there any specific design patterns or architectural choices made in the codebase that should be highlighted in the README.md description?
