@@ -1,0 +1,5 @@
+Question 1: What is the main purpose of this project?
+Question 2: Can you briefly describe the functionalities provided by each file in the codebase?
+Question 3: How are the different components of the codebase, such as the database, plotting, and natural language processing, connected to accomplish the overall goal of the project?
+Question 4: Are there any specific libraries or frameworks used in this project that should be mentioned in the README.md file?
+Question 5: Are there any specific setup or configuration steps required to run the project?
