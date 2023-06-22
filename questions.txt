@@ -1,0 +1,3 @@
+Question 1: Where in the app.py file should the reload button be placed to maintain a consistent user interface?
+Question 2: What Streamlit function should be used to create the reload button and trigger the data refresh?
+Question 3: After adding the reload button, which parts of the code in app.py need to be modified to ensure that the data is refreshed when the button is clicked?
