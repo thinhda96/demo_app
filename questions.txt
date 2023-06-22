@@ -1,0 +1,3 @@
+Question 1: What is the main purpose of this codebase?
+Question 2: Can you briefly describe the main components of the codebase, such as the plot.py, config.py, fake_data.py, database.py, app.py, and chat_sql_agent.py files, and their roles in the project?
+Question 3: How is the codebase structured, and are there any dependencies between the different components?
