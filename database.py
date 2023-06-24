@@ -1,6 +1,8 @@
 import mysql.connector
 from datetime import datetime
 
+import pandas as pd
+
 
 class Database:
     def __init__(self, config):
@@ -49,7 +51,7 @@ class Database:
 
         return data
 
-    def fetch_top_user_transactions(self) -> list:
+    def fetch_top_10_user_transactions(self) -> list:
         """
         Connects to the database, retrieves the total transaction amounts for the top 10 users, and returns the data.
         The transactions are grouped by user_id and the sum of transaction amounts for each user is calculated.
@@ -71,3 +73,23 @@ class Database:
         cnx.close()
 
         return data
+
+    def insert_transactions(self, df: pd.DataFrame):
+        """
+        Inserts transactions from a DataFrame into the database.
+        Args:
+            df (pd.DataFrame): A DataFrame containing transaction data.
+        """
+        cnx = self.connect()
+        cursor = cnx.cursor()
+
+        for index, row in df.iterrows():
+            query = f"""
+            INSERT INTO transactions (user_id, product_id, transaction_date, transaction_amount, payment_method)
+            VALUES ({row['user_id']}, {row['product_id']}, '{row['transaction_date']}', {row['transaction_amount']}, '{row['payment_method']}')
+            """
+            cursor.execute(query)
+
+        cnx.commit()
+        cursor.close()
+        cnx.close()

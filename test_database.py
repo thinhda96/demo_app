@@ -83,7 +83,7 @@ class TestDatabase(unittest.TestCase):
         mock_cursor.fetchall.return_value = [(1, 100), (2, 200)]
 
         db = Database({'host': 'localhost', 'user': 'test', 'password': 'test', 'database': 'test'})
-        result = db.fetch_top_user_transactions()
+        result = db.fetch_top_10_user_transactions()
 
         mock_connect.assert_called_once()
         mock_cursor.execute.assert_called_once()
