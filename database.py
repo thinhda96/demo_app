@@ -1,21 +1,19 @@
 import mysql.connector
-import pandas as pd
 from datetime import datetime
-from config import db_config
 
 
 class Database:
     def __init__(self, config):
         self.config = config
 
-    def _connect(self):
+    def connect(self):
         return mysql.connector.connect(**self.config)
 
     def fetch_all_transactions(self) -> list:
         """
         Fetches all transaction records from the database and returns them as a list of tuples.
         """
-        cnx = self._connect()
+        cnx = self.connect()
         cursor = cnx.cursor()
         query = "SELECT * FROM transactions"
         cursor.execute(query)
@@ -31,7 +29,7 @@ class Database:
             data (list): A list of tuples containing transaction_date and transaction_amount
                          for the current month and year.
         """
-        cnx = self._connect()
+        cnx = self.connect()
         cursor = cnx.cursor()
 
         current_month = datetime.now().month
@@ -56,7 +54,7 @@ class Database:
         Connects to the database, retrieves the total transaction amounts for the top 10 users, and returns the data.
         The transactions are grouped by user_id and the sum of transaction amounts for each user is calculated.
         """
-        cnx = self._connect()
+        cnx = self.connect()
         cursor = cnx.cursor()
 
         query = """
