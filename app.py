@@ -1,3 +1,4 @@
+
 import pandas as pd
 import streamlit as st
 
@@ -10,16 +11,12 @@ db_instance = Database(db_config)
 plot_instance = Plot()
 
 
-# plot_monthly_chart fetches the current month's transactions from the database, creates a chart to visualize these
-# transactions, and then displays the chart using Streamlit.
 def plot_monthly_chart():
     transactions = db_instance.fetch_current_month_transactions()
     chart = plot_instance.plot_monthly_transactions(transactions)
     st.pyplot(chart)
 
 
-# plot_user_transactions_pie_chart fetches the top user transactions from the database, creates a pie chart to visualize these transactions,
-# and displays the chart using Streamlit.
 def plot_user_transactions_pie_chart():
     transactions_by_user = db_instance.fetch_top_10_user_transactions()
     chart_user = plot_instance.plot_user_transactions_pie_chart(transactions_by_user)
@@ -39,6 +36,12 @@ def process_uploaded_file(uploaded_file):
             st.success("Transactions imported successfully.")
         except Exception as e:
             st.error(f"Error processing the uploaded file: {e}")
+
+def plot_spending_money_per_month_chart():
+    spending_data = db_instance.fetch_spending_money_per_month()
+    chart = plot_instance.plot_spending_money_per_month(spending_data)
+    st.pyplot(chart)
+
 
 if __name__ == "__main__":
     agent = create_openai_sqlagent(open_ai_key)
@@ -74,3 +77,14 @@ if __name__ == "__main__":
     st.write('---')
     # show transaction pie chart
     plot_user_transactions_pie_chart()
+
+    st.write('---')
+    # show spending money per month chart
+    with st.container():
+        col1, col2 = st.columns(2)
+        with col1:
+            # Add any content you want to display in the left column
+            col1.write("Hello World")
+        with col2:
+            # show spending money per month chart
+            plot_spending_money_per_month_chart()

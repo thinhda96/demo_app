@@ -1,3 +1,4 @@
+
 import mysql.connector
 from datetime import datetime
 
@@ -12,9 +13,6 @@ class Database:
         return mysql.connector.connect(**self.config)
 
     def fetch_all_transactions(self) -> list:
-        """
-        Fetches all transaction records from the database and returns them as a list of tuples.
-        """
         cnx = self.connect()
         cursor = cnx.cursor()
         query = "SELECT * FROM transactions"
@@ -23,14 +21,6 @@ class Database:
         return data
 
     def fetch_current_month_transactions(self) -> list:
-        """
-        Fetches transaction data (date and amount) for the current month and year
-        from the `transactions` table in the database.
-
-        Returns:
-            data (list): A list of tuples containing transaction_date and transaction_amount
-                         for the current month and year.
-        """
         cnx = self.connect()
         cursor = cnx.cursor()
 
@@ -52,10 +42,6 @@ class Database:
         return data
 
     def fetch_top_10_user_transactions(self) -> list:
-        """
-        Connects to the database, retrieves the total transaction amounts for the top 10 users, and returns the data.
-        The transactions are grouped by user_id and the sum of transaction amounts for each user is calculated.
-        """
         cnx = self.connect()
         cursor = cnx.cursor()
 
@@ -72,6 +58,19 @@ class Database:
         cursor.close()
         cnx.close()
 
+        return data
+
+    def fetch_spending_money_per_month(self) -> list:
+        cnx = self._connect()
+        cursor = cnx.cursor()
+        query = """
+        SELECT transaction_date, transaction_amount
+        FROM transactions
+        """
+        cursor.execute(query)
+        data = cursor.fetchall()
+        cursor.close()
+        cnx.close()
         return data
 
     def insert_transactions(self, df: pd.DataFrame):
