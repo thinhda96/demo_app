@@ -47,7 +47,6 @@ class TestDatabase(unittest.TestCase):
             (3, 3, "2021-01-03", 300)
         ])
 
-
     @mock.patch("mysql.connector.connect")
     def test_fetch_current_month_transactions(self, mock_connect):
         # Arrange
