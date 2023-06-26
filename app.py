@@ -79,12 +79,4 @@ if __name__ == "__main__":
     plot_user_transactions_pie_chart()
 
     st.write('---')
-    # show spending money per month chart
-    with st.container():
-        col1, col2 = st.columns(2)
-        with col1:
-            # Add any content you want to display in the left column
-            col1.write("Hello World")
-        with col2:
-            # show spending money per month chart
-            plot_spending_money_per_month_chart()
+    plot_spending_money_per_month_chart()
