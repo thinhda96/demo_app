@@ -69,6 +69,11 @@ if __name__ == "__main__":
                                'payment_method'])
     st.subheader('Transaction Data')
     st.write(df)
+    
+    all_users = db_instance.fetch_all_users()
+    df_users = pd.DataFrame(all_users, columns=['id', 'username', 'email', 'created_at'])
+    st.subheader('User Data')
+    st.write(df_users)
 
     st.write('---')
     # show monthly chart
