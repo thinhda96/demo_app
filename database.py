@@ -96,7 +96,7 @@ class Database:
     def fetch_all_users(self) -> list:
         cnx = self.connect()
         cursor = cnx.cursor()
-        query = "SELECT * FROM users"
+        query = "SELECT id, username, email, created_at FROM users"
         cursor.execute(query)
         data = cursor.fetchall()
         cursor.close()
