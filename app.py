@@ -19,7 +19,7 @@ if __name__ == "__main__":
 
 
     st.title("Dashboard builder")
-
+    
     all_data = db_instance.fetch_all_transactions()
     df = pd.DataFrame(all_data,
                       columns=['id', 'user_id', 'product_id', 'transaction_date', 'transaction_amount',
